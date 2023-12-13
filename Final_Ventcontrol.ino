@@ -1,18 +1,16 @@
-// Stepper motor vent control
+// Ventilation Control Function
+// Controls the stepper motor for ventilation based on sensor inputs.
 
-void Vent_control()
-{
-  int steps = stepsPerRevolution/360;
+void VentControl() {
+  int steps = stepsPerRevolution / 360;  // Calculate steps for partial revolution
 
-    while(*pin_k == B00000010) //Analog pin 9
-    {
-      myStepper.step(steps);  // Rotate left
-      Serial.println (" rotating left");
-    }
+  while (*portKInput == B00000010) {  // Analog pin 9
+    stepper.step(steps);  // Rotate stepper motor
+    Serial.println("Rotating Left");
+  }
 
-    while(*pin_k == B00000100) //Analog pin 10
-    {
-      myStepper.step(-steps); // Rotate right
-      Serial.println ("rotating right");
-    }
+  while (*portKInput == B00000100) {  // Analog pin 10
+    stepper.step(-steps);  // Rotate stepper motor in opposite direction
+    Serial.println("Rotating Right");
+  }
 }
