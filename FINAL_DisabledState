@@ -1,0 +1,19 @@
+// Disabled State Function
+// This state represents the system being turned off or disabled.
+
+void DisabledState() {
+  if (toggle != 1) {
+    toggle = 1;
+    lcd.clear();
+    *portBData &= B01111111;
+    *portBData |= B00000010;
+    *portBData &= B11111110;
+    *portBData &= B11111011;
+    *portBData &= B11110111;
+  }
+  Serial.println("DISABLED State");
+  ClockModule();  // Display clock information
+  *portBData |= B00000010;  // Turn on Yellow LED to indicate disabled state
+  lcd.setCursor(0, 0);
+  lcd.print("System Off");
+}
