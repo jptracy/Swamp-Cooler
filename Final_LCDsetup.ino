@@ -1,23 +1,22 @@
-// LCD setup
+// LCD Data Display Function
+// Displays humidity and temperature data on the LCD.
 
-void LCD_data(float h, float f) 
-{
-  lcd.setCursor (0,0);  // set cursor to display humidity on row 1
-  lcd.print ("Humidity: ");
-  lcd.print (h);
-  lcd.print ("%");
+void LCDData(float humidity, float temperatureF) {
+  lcd.setCursor(0, 0);
+  lcd.print("Humidity: ");
+  lcd.print(humidity);
+  lcd.print("%");
 
-  lcd.setCursor (0,1);  // set cursor display temperature (F) on row 2
-  lcd.print ("Temp: ");
-  lcd.print (f);
-  lcd.print (" F");
+  lcd.setCursor(0, 1);
+  lcd.print("Temp: ");
+  lcd.print(temperatureF);
+  lcd.print(" F");
 }
 
-void LCD_error() 
-{
-  lcd.setCursor (0,0);  // set cursors for error display
-  lcd.print("ERROR:");
+// LCD Error Display Function
+// Displays an error message on the LCD, typically for low water level.
 
-  lcd.setCursor(0,1);
-  lcd.print ("LOW WATER");
+void LCDError() {
+  lcd.setCursor(0, 0);
+  lcd.print("ERROR: LOW WATER");
 }
