@@ -1,0 +1,43 @@
+void setup() {
+  // Initialize serial communication and RTC (Real Time Clock)
+  Serial.begin(57600);
+  #ifndef ESP8266
+  while (!Serial); // Wait for serial port to connect. Needed for USB
+  #endif
+
+  if (!rtc.begin()) {
+    Serial.println("Couldn't find RTC");
+    Serial.flush();
+    while (1) delay(10);  // Infinite loop if RTC not found
+  }
+
+  if (!rtc.isrunning()) {
+    Serial.println("RTC is NOT running, setting the time");
+    rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));  // Set RTC to compile time
+  }
+
+  // Initialize stepper motor
+  stepper.setSpeed(rpm);
+
+  // Initialize LCD
+  lcd.begin(16, 2);
+
+  // Initialize DHT sensor
+  dht.begin();
+
+  // Initialize timers
+  *timerInterruptFlagReg1 = B00000000;
+  *timerCounter1 = B00000000;
+  *timerControlRegB = B00000000;
+  *timerControlRegA = B00000000;
+
+  // Initialize ADC and UART
+  U0init(9600);
+  adc_init();
+
+  // Initialize digital output pins
+  *portBDirection = B10001111;
+
+  // Initialize analog input pins
+  *portKDirection = B01111111;
+}
