@@ -1,16 +1,16 @@
-//DHT Sensor setup
+// DHT Sensor Function
+// Reads and returns temperature from the DHT sensor, and updates the LCD.
 
-double DHT_sensor() 
-{
-  float h = dht.readHumidity(); // read humidity
-  float f = dht.readTemperature(true);  // read temp (fahrenheit = true)
+double DHTSensor() {
+  float humidity = dht.readHumidity();  // Read humidity
+  float temperatureF = dht.readTemperature(true);  // Read temperature in Fahrenheit
 
-  if (isnan(h) || isnan(f)) // check for failure to read humid or temp
-  {
-    Serial.println(F("Failed to read from DHT sensor"));
-    return;
+  // Check for failed reading from sensor
+  if (isnan(humidity) || isnan(temperatureF)) {
+    Serial.println(F("Failed to read from DHT sensor!"));
+    return -1;  // Return error code if reading fails
   }
-  LCD_data(h, f); // display humid and temp values to lcd
 
-  return f;
+  LCDData(humidity, temperatureF);  // Update LCD with temperature and humidity data
+  return temperatureF;  // Return the temperature reading
 }
