@@ -1,0 +1,18 @@
+// Idle State Function
+// This state is active when the system is on but idle due to no need for intervention.
+
+void IdleState() {
+  if (toggle != 2) {
+    toggle = 2;
+    lcd.clear();
+    *portBData &= B01111111;
+    *portBData |= B00000001;
+    *portBData &= B11111101;
+    *portBData &= B11111011;
+    *portBData &= B11110111;
+  }
+  Serial.println("IDLE State");
+  ClockModule();
+  DHTSensor();  // Read humidity and temperature
+  VentControl();  // Control ventilation based on environmental data
+}
