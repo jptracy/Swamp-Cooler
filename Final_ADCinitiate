@@ -1,0 +1,8 @@
+// ADC Initialization Function
+// Sets up the ADC for reading.
+void adc_init() {
+  *adcMux |= 0b11000000;  // Set ADC multiplexer settings
+  *adcControlStatusA |= 0b10100000;  // Set ADC control and status register A
+  *adcControlStatusB |= 0b01000000;  // Set ADC control and status register B
+  *adcData |= 0x00;  // Clear ADC data register
+}
