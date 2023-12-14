@@ -1,0 +1,7 @@
+// ADC Read Function
+// Performs an ADC read on the specified channel.
+unsigned int adc_read(unsigned char adc_channel) {
+  *adcControlStatusB |= adc_channel;  // Set channel to read from
+  *adcControlStatusA |= 0x40;  // Start the ADC conversion
+  while (!(*adcControlStatusA & 0x40));  // Wait for conversion to complete
+  return *adcData;  // Return the ADC data
