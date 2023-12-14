@@ -1,0 +1,17 @@
+// Error State Function
+// This state is triggered when there is an error, such as low water level.
+void ErrorState() {
+  if (toggle != 4) {
+    toggle = 4;
+    lcd.clear();
+    *portBData &= B01111111;
+    *portBData |= B00000100;
+    *portBData &= B11110111;
+    *portBData &= B11111101;
+    *portBData &= B11111110;
+  }
+  VentControl();
+  Serial.println("ERROR State");
+  ClockModule();
+  LCDError();  // Display error message on LCD
+}
