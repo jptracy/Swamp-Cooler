@@ -1,0 +1,7 @@
+// Water Sensor Function
+// Reads and returns the water level from the ADC.
+int WaterSensor() {
+  adc_init();  // Initialize ADC
+  int waterLevel = adc_read(0x00);  // Read water level from ADC channel 0
+  return waterLevel;  // Return the water level reading
+}
