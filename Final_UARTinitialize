@@ -1,0 +1,10 @@
+// UART Initialization Function
+// Initializes the UART (Universal Asynchronous Receiver-Transmitter) for serial communication.
+void U0init(unsigned long baudRate) {
+  unsigned long fCPU = 16000000;  // CPU clock frequency
+  unsigned int tBaud = (fCPU / 16 / baudRate - 1);  // Calculate baud rate
+  *serialControlRegA = 0x20;  // Set control register A
+  *serialControlRegB = 0x18;  // Set control register B
+  *serialControlRegC = 0x06;  // Set control register C
+  *baudRateReg = tBaud;  // Set baud rate register
+}
