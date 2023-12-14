@@ -1,0 +1,21 @@
+void loop() 
+{
+  if (*pin_k == B00000001)  //on/off == off
+   {
+     DISABLED_STATE();
+   }
+  if (*pin_k == B00000000 && (Water_Sensor() > Water_Threshold) && (DHT_sensor() < Temp_Threshold)) //on/off == on && water level > threshold && temp < threshold
+    {
+      IDLE_STATE();
+    }
+
+  if (*pin_k == B00000000 && (Water_Sensor() > Water_Threshold) && (DHT_sensor() > Temp_Threshold)) //on/off == on && water level > threshold && temp > threshold || reset == on
+    {
+      RUNNING_STATE();
+    }
+
+  if (*pin_k == B00000000 && (Water_Sensor() < Water_Threshold)) //on/off == on && water level < threshold 
+    {
+      ERROR_STATE();
+    }
+}
