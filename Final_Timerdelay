@@ -1,0 +1,11 @@
+// Timer Delay Function
+// Creates a delay based on timer ticks.
+void TimerDelay(unsigned int ticks) {
+  *timerControlRegB &= 0x00;  // Clear timer control register B
+  *timerControlRegA &= 0x00;  // Clear timer control register A
+  *timerCounter1 = (unsigned int)(65535 - ticks);  // Set timer count
+  *timerControlRegB |= 0b00000100;  // Set timer settings
+  while ((*timerInterruptFlagReg1 & 0x01) == 0);  // Wait for timer overflow
+  *timerControlRegB &= 0x00;  // Clear timer control register B again
+  *timerInterruptFlagReg1 |= 0x01;  // Clear timer interrupt flag
+}
